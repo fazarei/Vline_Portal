@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data initialScreen="home" afterLogout="loggedOut">
+	<section id="misc">
+		<title><![CDATA[]]></title>
+		
+		<screen id="loggedOut"
+			trackInHistory="false">
+			
+			<content type="html">
+				<![CDATA[
+					<p>You have been logged out.</p>
+					
+					<a href="#" class="standard-button goto-login">Log in again</a>
+				]]>
+			</content>
+		</screen>
+	</section>
+	
+	<section id="home">
+		<title><![CDATA[Home]]></title>
+		
+		<screen id="home">
+			<content type="html">
+				<![CDATA[
+					<p>Welcome to the <b>Driver Trainer - App Admin Site</b>.</p>
+					<p>Use the top menu to navigate this site.</p>
+				]]>
+			</content>
+		</screen>
+	</section>
+	
+	<section id="assignTrainer">
+		<title><![CDATA[Assign Trainer/Assessor]]></title>
+		
+		<screen id="assignTrainer"
+			js="js/assign-trainer.js">
+			<content type="html">
+				<![CDATA[
+					
+					<p>Search : <input type="text" id="search" placeholder="Type to search"><space style="visibility:hidden;">Vline</space><input type="button" onclick="window.print();" value="Print" /></p>
+					<table class="trainer-list">
+						<thead class="titles">
+							<th class="name-title"><a class="sort sort-by-name active" href="#">Name</a></th>
+							<th><a class="sort sort-by-trainer" href="#">Trainer</a></th>
+							<th><a class="sort sort-by-assessor" href="#">Assessor</a></th>
+						</thead>
+					</table>
+					
+					<a href="#" class="standard-button submit">Submit</a>
+					<a href="#" class="standard-button add-users">Add user(s)</a>
+					
+					<div class="dialog user-list-dialog" title="Add more users" width="380">
+						<p>Select the users to add to the list of trainers/assessors.</p>
+						<p><strong style="display: inline; float: left; padding-right: 10px;">Search : </strong><span id="filterholder" style="display: inline; position: relative; top: -3px;"></span></p>
+						<table id="userlist" class="user-list">
+							<tr class="titles">
+								<th>Name</th>
+								<th>Add</th>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="dialog user-list-empty-dialog" title="Add more users" width="350">
+						<p>There are no more users to add to the list as all existing users are already included.</p>
+					</div>
+					
+					<div class="dialog submit-successful-dialog" title="Submitted changes" width="300">
+						<p>Your changes have been submitted.</p>
+					</div>
+					
+					<div class="dialog submit-error-dialog" title="An error occured" width="350">
+						<p>There was an error submitting your changes.</p>
+						<p>Please try again.</p>
+					</div>
+				]]>
+			</content>
+		</screen>
+	</section>
+	
+	<section id="traineeList">
+		<title><![CDATA[Trainee List]]></title>
+		
+		<screen id="traineeList"
+			js="js/trainee-report.js">
+			<content type="html">
+				<![CDATA[
+					<!-- div class="filters">
+						<p class="box-title">Filters</p>
+						<div class="box-content">
+							<p>Apply a filter to refine the list of trainees.</p>
+							<div class="filter filter-group">
+								<p>Select group:</p>
+								<select class="select-group">
+									<option value="">- select a group -</option>
+								</select>
+							</div>
+							<div class="filter filter-stage">
+								<p>Select stage:</p>
+								<select class="select-stage">
+									<option value="">- select a stage -</option>
+								</select>
+							</div>
+							
+							<div class="button-pane">
+								<a href="#" class="standard-button apply">Apply</a>
+							</div>
+						</div>
+					</div -->
+					<p>Search : <input type="text" id="search" placeholder="Type to search"><space style="visibility:hidden;">Vline</space><input type="button" onclick="window.print();" value="Print" /></p>
+					<p class="current-filters"></p>
+					
+					<table class="trainee-list-1">
+						<tr class="titles">
+							<th class="name-title">Name</th>
+							<th class="checklist-title">Checklists</th>
+							<th class="assessment-title">Assessments</th>
+						</tr>
+					</table>
+					<table class="trainee-list">
+						<tr class="loding-anim">
+							<td colspan="3" style="width: 376px; display : block;" >loading please wait ...
+							</td>
+						</tr>
+					</table>
+
+					<style>
+						td.name, th.name-title {
+							width: 150px;
+							padding: 10px 10px;
+						}
+						td.checklist, th.checklist-title {
+							width: 100px;
+						}
+						td.assessment, th.assessment-title {
+							width: 80px;
+						}
+						table.trainee-list-1 {
+							margin: 0px;
+							margin-left: 38px;
+						}
+						input#search {
+							margin-left: 39px;
+							height: 27px;
+						}
+					</style>
+				]]>
+			</content>
+		</screen>
+		
+		<screen id="checklistSummary"
+			js="js/checklist-summary.js">
+			<title><![CDATA[Trainee List - Checklists]]></title>
+			<content type="html">
+				<![CDATA[
+					<a href="#" class="standard-button back-button goto-traineeList">Back to Trainee List</a>
+					
+					<h2>Checklist record for <span class="highlighted current-trainee">Unspecified</span>.</h2>
+
+					<p>Search : <input type="text" id="search" placeholder="Type to search"><space style="visibility:hidden;">Vline</space><input type="button" onclick="window.print();" value="Print" /></p>
+					<p style="display:none;"><b>Group:</b> <span class="current-group">Unspecified</span> <span class="separator">&nbsp;</span><b>Stage:</b> 
+					<span class="current-stage">Unspecified</span></p>
+
+					
+
+					<table class="checklist-list-1" style="margin-bottom: 0px;">
+						<tr class="titles">
+							<th class="name-title">Checklist Number</th>
+							<th class="name-title" style="width: 280px;">Checklist</th>
+							<th class="name-title" style="width: 159px;">Stage</th>
+							<th class="in-process-title">Not Yet Started</th>
+							<th class="in-process-title">In Process</th>
+							<th class="completed-title">Comp leted</th>
+							<th class="completed-title">RPL</th>
+						</tr>
+					</table>
+
+					<table class="checklist-list">
+						<tr class="titles">
+							
+						</tr>
+					</table>
+					<style>
+						th {
+							padding: 3px 10px;
+						}
+						td.docid {
+							width: 140px;
+							padding: 10px 10px;
+						}
+						td.name{
+							width: 280px;
+						}
+						td.stage{
+							width: 159px;
+						}
+						th.name-title {
+							width: 142px;
+						}
+						.checklist-list-1 th:first-child + th {
+
+						}
+
+						th.in-process-title, th.completed-title, td.completed, td.inprocess {
+							width:50px
+
+						}
+						table.trainee-list-1 {
+							margin: 0px;
+							margin-left: 38px;
+						}
+						input#search {
+							margin-left: 39px;
+							height: 27px;
+						}
+					</style>
+				]]>
+			</content>
+		</screen>
+		
+		<screen id="assessmentSummary"
+			js="js/assessment-summary.js">
+			<title><![CDATA[Trainee List - Assessments]]></title>
+			<content type="html">
+				<![CDATA[
+					<a href="#" class="standard-button back-button goto-traineeList">Back to Trainee List</a>
+					
+					<h2>Assessment record for <span class="highlighted current-trainee">Unspecified</span>.</h2>
+					<p><b>Group:</b> <span class="current-group">Unspecified</span> <span class="separator">&nbsp;</span><b>Stage:</b> <span class="current-stage">Unspecified</span><space style="visibility:hidden;">Vline</space><input type="button" onclick="window.print();" value="Print" /></p>
+					
+					<table class="assessment-list">
+						<tr class="titles">
+							<!-- <th class="name-title"><a class="sort sort-by-name active" href="#">Assessment</a></th> -->
+							<th class="name-title">Assessment</th>
+							<!-- <th class="in-process-title"><a class="sort sort-by-inprocess" href="#">In Process</a></th> -->
+							<th class="in-process-title">In Process</th>
+							<!-- <th class="completed-title"><a class="sort sort-by-completed" href="#">Completed</a></th> -->
+							<th class="completed-title">Completed</th>
+						</tr>
+					</table>
+				]]>
+			</content>
+		</screen>
+		
+		<screen id="checklist"
+			js="js/checklist.js">
+			<title><![CDATA[Trainee List - Checklist]]></title>
+			<content type="html">
+				<![CDATA[
+					<a href="#" class="standard-button back-button goto-checklistSummary">Back to Checklists</a>
+					
+					<div class="doc-wrapper pie">
+					
+						<h2><span class="doc-stageName"></span><br/><span class="doc-id"></span> <span class="doc-name"></span></h2><space style="visibility:hidden;">Vline</space><input type="button" onclick="window.print();" value="Print" />
+						
+						<p>The trainee must safely and satisfactorily demonstrate competency for all items below including correctly answering any supplementary questions asked by the trainer, as appropriate for the work the learner is required to perform.</p>
+						
+						<table class="full-width">
+							<tr>
+								<td colspan="2"><b>Trainee Driver: </b><span class="current-trainee"></span></td>
+								<td><b>Employee No.: </b><span class="trainee-number"></span></td>
+							</tr>
+							<tr>
+								<td><b>Lesson No.:</b> <span class="doc-id"></span></td>
+								<td colspan="2"><b>Lesson Title : </b><span class="doc-name"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>Objective:</b> <span class="doc-objective"></span></td>
+							</tr>
+							<tr>
+								<td><b>CORRIDOR Down : </b><span class="corri-down"></span></td>
+								<td colspan="2"><b>CORRIDOR Up : </b><span class="corri-up"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>LOCOMOTIVE TYPE :</b> <span class="doc-loco-type"></span></td>
+							</tr>
+						</table>
+						
+						<h3>1. INSTRUCTION</h3>
+						<table class="full-width">
+							<tr>
+								<td colspan="3"><b>Conducted by Trainer: </b><span class="instruction-trainer"></span></td>
+								<td colspan="3"><b>Trainer's Signature: </b><span class="instruction-sign"></span></td>
+							</tr>
+							<tr>
+								<td colspan="2"><b>Date:</b><br/><span class="instruction-date"></span></td>
+								<td colspan="2"><b>Day or Night:</b><br/><span class="instruction-daynight"></span></td>
+								<td colspan="2"><b>Weather Conditions: (As Appropriate)</b><br/><span class="instruction-weather"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>From: (As Appropriate)</b><br/><span class="instruction-from"></span></td>
+								<td colspan="3"><b>To: (As Appropriate)</b><br/><span class="instruction-to"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>Motive Power Unit : (As Appropriate)</b><br/><span class="instruction-unit"></span></td>
+								<td colspan="3"><b>No. of vehicles : (As Appropriate)</b><br/><span class="instruction-vehicles"></span></td>
+							</tr>
+						</table>
+						
+						<h3>2. GUIDED PRACTICE</h3>
+						<table class="full-width">
+							<tr>
+								<td colspan="3"><b>Conducted by Trainer: </b><span class="guided-trainer"></span></td>
+								<td colspan="3"><b>Trainer's Signature: </b><span class="guided-sign"></span></td>
+							</tr>
+							<tr>
+								<td colspan="2"><b>Date:</b><br/><span class="guided-date"></span></td>
+								<td colspan="2"><b>Day or Night:</b><br/><span class="guided-daynight"></span></td>
+								<td colspan="2"><b>Weather Conditions: (As Appropriate)</b><br/><span class="guided-weather"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>From: (As Appropriate)</b><br/><span class="guided-from"></span></td>
+								<td colspan="3"><b>To: (As Appropriate)</b><br/><span class="guided-to"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>Motive Power Unit : (As Appropriate)</b><br/><span class="guided-unit"></span></td>
+								<td colspan="3"><b>No. of vehicles : (As Appropriate)</b><br/><span class="guided-vehicles"></span></td>
+							</tr>
+						</table>
+						
+						<h3>3. UNGUIDED PRACTICE</h3>
+						<table class="full-width">
+							<tr>
+								<td colspan="3"><b>Conducted by Trainer: </b><span class="unguided-trainer"></span></td>
+								<td colspan="3"><b>Trainer's Signature: </b><span class="unguided-sign"></span></td>
+							</tr>
+							<tr>
+								<td colspan="2"><b>Date:</b><br/><span class="unguided-date"></span></td>
+								<td colspan="2"><b>Day or Night:</b><br/><span class="unguided-daynight"></span></td>
+								<td colspan="2"><b>Weather Conditions: (As Appropriate)</b><br/><span class="unguided-weather"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>From: (As Appropriate)</b><br/><span class="unguided-from"></span></td>
+								<td colspan="3"><b>To: (As Appropriate)</b><br/><span class="unguided-to"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>Motive Power Unit : (As Appropriate)</b><br/><span class="unguided-unit"></span></td>
+								<td colspan="3"><b>No. of vehicles : (As Appropriate)</b><br/><span class="unguided-vehicles"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>Preformed without trainer intervention : </b></td>
+								<td colspan="3"><span class="unguided-preformed"></span></td>
+							</tr>
+						</table>
+						
+						<table class="checklist-table full-width table-fix1">
+							<tr>
+								<th colspan="2">1.</th>
+								<th colspan="3">2. GUIDED PRACTICE</th>
+								<th colspan="3">3. UNGUIDED PRACTICE</th>
+							</tr>
+							<tr class="subheading">
+								<td class="instructed thin">Instructed</td>
+								<td>Task</td>
+								<td class="thin">N/A</td>
+								<td class="thin">D</td>
+								<td class="thin">E</td>
+								<td class="thin">N/A</td>
+								<td class="thin">D</td>
+								<td class="thin">E</td>
+							</tr>
+							
+						</table>
+						
+						<table class="full-width">
+							<tr>
+								<td>I have received the above training :</td>
+								<td>Trainee (Signature) : <br/><span class="receive-trainee-sign"><a class="checkbox blocked" href="#"></a></span></td>
+								<td colspan="2">Date : (As Appropriate)<br/><span class="receive-trainee-date"></span></td>
+							</tr>
+							<tr>
+								<td>Training Completed</td>
+								<td>Trainer (Name) : <br/><span class="receive-trainer-name"></span></td>
+								<td>Trainer (Signature) : (As Appropriate)<br/><span class="receive-trainer-sign"><a class="checkbox blocked" href="#"></a></span></td>
+								<td colspan="2" >Date : <br/><span class="receive-trainer-date"></span></td>
+							</tr>
+						</table>
+						
+					</div>
+				]]>
+			</content>
+		</screen>
+		
+		<screen id="assessment"
+			js="js/assessment.js">
+			<title><![CDATA[Trainee List - Assessment]]></title>
+			<content type="html">
+				<![CDATA[
+					<input type="button" onclick="window.print();" value="Print" /><space style="visibility:hidden;">Vline</space><a href="#" class="standard-button back-button goto-assessmentSummary">Back to Assessments</a>
+					
+					<strong style="color : red"><i>Please Note: Incomplete sections are not shown in generated Assessments. </i><br/></strong>
+					
+					<div class="doc-wrapper pie">
+						
+						<h2><span class="doc-name"></span></h2>
+						
+						<!-- table class="full-width">
+							<tr>
+								<td colspan="2">Trainee Driver: <span class="current-trainee"></span></td>
+								<td>Employee No.:<span class="trainee-number"></span></td>
+							</tr>
+							<tr>
+								<td><b>Lesson No.: <span class="doc-id"></span></b></td>
+								<td colspan="2">Lesson Title:<span class="doc-name"></span></td>
+							</tr>
+							<tr>
+								<td colspan="3"><b>Objective:</b> <span class="doc-objective"></span></td>
+							</tr>
+						</table -->
+						
+						<div id="assessment-holder" class="addtable"></div>
+						
+					</div>
+				]]>
+			</content>
+		</screen>
+	</section>
+	
+	<section id="generatePassword">
+		<title><![CDATA[Generate Temporary Password]]></title>
+		
+		<screen id="generatePassword"
+			js="js/generate-passwd.js">
+			<content type="html">
+				<![CDATA[
+					<p>To generate a temporary password for a particular user, use the form below.</p>
+					
+					<table class="nogrid password">
+						<tr>
+							<td class="prompt">User ID</td>
+						</tr>
+						<tr>
+							<td class="inputfield">
+								<input name="usrname" type="text" id="usrname" maxlength="18">
+								
+								<div class="guide ui-tooltip left-top pie hidden">
+									<p>User IDs must:</p>
+									<ul>
+										<li>be 6-18 characters in length</li>
+										<li>contain only letters, numbers or underscores.</li>
+									</ul>
+								</div>
+							</td>
+							
+						</tr>
+						<tr>
+								<td>
+									<input type="checkbox" class="isTrainer" name="isTrainer" value="isTrainer"><span class="label">Trainer</span>
+									<input type="checkbox" class="isAssessor" name="isAssessor" value="isAssessor"><span class="label">Assessor</span>
+								</td>
+						</tr>
+						<tr>
+							<td class="prompt email"><input type="checkbox" name="sendEmail" value="sendEmail"> <span class="cbText">Send the password to the following email address</span></td>
+						</tr>
+						<tr>
+							<td class="inputfield"><input name="email" type="text" id="email" disabled="disabled"></td>
+						</tr>
+						<tr>
+							<td class="submit"><a href="#" class="standard-button password-button">Generate password</a></td>
+						</tr>
+					</table>
+					
+					<div class="dialog invalid-userid" title="Invalid user ID" width="370">
+						<p>The user ID you entered is not valid.</p>
+						<p>User IDs must:</p>
+						<ul>
+							<li>be 6-18 characters in length</li>
+							<li>contain only letters, numbers or underscores.</li>
+						</ul>
+					</div>
+					
+					<div class="dialog invalid-email" title="Invalid email address" width="370">
+						<p>The email address you entered is not valid.</p>
+						<p>Please verify the email address and try again, or uncheck the box to send the password.</p>
+					</div>
+				]]>
+			</content>
+		</screen>
+	</section>
+	
+	<section id="accountInfo">
+		<title><![CDATA[Account Information]]></title>
+		
+		<screen id="accountInfo">
+			<content type="html">
+				<![CDATA[
+					<p>account info screen</p>
+					
+					<a href="#" class="standard-button goto-login">Go to login</a>
+				]]>
+			</content>
+		</screen>
+	</section>
+	
+	<section id="logRecords">
+		<title><![CDATA[Log Records]]></title>
+		
+		<screen id="logRecords" js="js/logrecords.js" css="css/logrecords.css">
+			<content type="html">
+				<![CDATA[
+					<p>Log Records info screen</p>
+					
+					<div class="logTableHolder">
+						
+					</div>
+					
+				]]>
+			</content>
+		</screen>
+	</section>
+</data>
