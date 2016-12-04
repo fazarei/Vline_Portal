@@ -10,12 +10,12 @@
 function EKPencryptPassword($unEncPassword)
 {
 
-   $port = 8082;
+   $port = 8080;
    $file = "/encryptcentre/jsp/encrypt-password.jsp?".urlencode($unEncPassword);
 
    $cont = "";
    // IP addresses have changed
-   $ip ="203.89.217.45";
+   $ip ="116.118.249.142";
    $fp = fsockopen($ip, $port);
    if ( $fp )
    {

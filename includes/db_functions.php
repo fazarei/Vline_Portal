@@ -418,19 +418,19 @@ function verifyUser($userid="",$pass="") {
 
 	$userinfo="Invalid user ID or password";
 
-	$sql="SELECT currentpid,CONCAT(givenname,' ',familyname) as fullname FROM users WHERE level1id='VLine'  AND currentpid='$userid' AND password='$pass' ";
+	$sql="SELECT currentpid,CONCAT(givenname,' ',familyname) as fullname FROM users WHERE level1id='VLine'  AND currentpid='$userid' AND password='$pass'";
 
 	 writeLog (date('H:i:s')." - $sql");	
 	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
 		if($row = mysql_fetch_array($result)) {
-			 $userinfo=$row["currentpid"].",".$row["fullname"];
+			 $userinfo=$row["currentPID"].",".$row["fullname"];
 			
 			//Fernando start
 				//Session start
 				//session_set_cookie_params(0);
-				session_start();
+				//session_start();
 				//set user id to session
-				session_register($userid);
+				//session_register($userid);
 				
 				$_SESSION['user'] = $userid;
 	

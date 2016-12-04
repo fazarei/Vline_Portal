@@ -23,9 +23,10 @@ if($_POST) {
 				$userid = $_POST['userid'];
 				
 			if (isset($_POST['pass']))
-				$pass = EKPencryptPassword($_POST['pass']);
-				
-					
+			{
+			   $pass = EKPencryptPassword($_POST['pass']);
+			}
+		
 			$csvdata=verifyUser($userid,$pass);
 			break;
 		
