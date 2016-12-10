@@ -989,17 +989,36 @@ function traineeTrackId($trainee) {
 
 function updateTraineeVersion($trainee)
 {
+	$sqltExistTraineeTrack="SELECT * from app_trainee_track where trainee='$trainee'";
+	$num_rows_track=0;
+	//If we couldnt find name of the trainee in track table, we have to insert it.
+	if($resultExistTraineeTrack=mysql_query($sqltExistTraineeTrack,$GLOBALS['connectionInfo'])){
+		$num_rows_track = mysql_num_rows($resultExistTraineeTrack);
+	}
 	$sql="SELECT versionNumber from app_update_version ORDER BY Id DESC LIMIT 1";
 	$versionNumber;
 	$response="";
 	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
 		while($row = mysql_fetch_array($result)) {
 		$versionNumber=$row["versionNumber"];
-		$sqlUpdate="update app_trainee_track set versionNumber='$versionNumber' where trainee='$trainee'";
+		if($num_rows_track>0)
+		{
+			$sqlUpdate="update app_trainee_track set versionNumber='$versionNumber' where trainee='$trainee'";
 			if(mysql_query($sqlUpdate,$GLOBALS['connectionInfo']))
 				$response=$versionNumber;
 			else 
 				$response="No Version Number";
+		}
+		else
+		{
+		//Currently we dont have seperate trackId for each trainee. so, we insert 1 for all trainee but in future should be different for each trainee 
+			$sqlUpdate="insert into app_trainee_track (trainee,trackId,versionNumber) VALUES ('".$trainee."',1,'".$versionNumber."')";
+			if(mysql_query($sqlUpdate,$GLOBALS['connectionInfo']))
+				$response=$versionNumber;
+			else 
+				$response="No Version Number";
+		}
+		
 		}
 	}
 	return $response;
