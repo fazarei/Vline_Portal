@@ -217,6 +217,10 @@ if($_POST) {
 			$csvdata=loadChecklist($_POST['trainee']);
 			break;	
 
+		case "loadChecklistTask":
+			$csvdata=loadChecklistTask($_POST['trainee']);
+			break;
+			
 		case "loadChecklistIndex":
 			$csvdata=loadChecklistIndex($_POST['trainee']);
 			break;	
