@@ -930,6 +930,21 @@ function loadChecklist($trainee) {
 	return $allChecklist;
 }
 
+function loadChecklistTask($trainee) {
+
+	//$trackId=traineeTrackId($trainee);
+	$allChecklistTask="";
+				
+	$sql="SELECT Id,checknum,name,taskgroup FROM app_core_checklisttask where trackId='1' and upgradeQuery<>'delete'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allChecklistTask.=$row["Id"]."^".$row["checknum"]."^".$row["name"]."^".$row["taskgroup"]."!";
+		}
+	}
+	return $allChecklistTask;
+}
+
 function loadCompetency($trainee) {
 
 	//$trackId=traineeTrackId($trainee);
@@ -1012,8 +1027,8 @@ function updateTraineeVersion($trainee)
 		else
 		{
 		//Currently we dont have seperate trackId for each trainee. so, we insert 1 for all trainee but in future should be different for each trainee 
-			$sqlUpdate="insert into app_trainee_track (trainee,trackId,versionNumber) VALUES ('".$trainee."',1,'".$versionNumber."')";
-			if(mysql_query($sqlUpdate,$GLOBALS['connectionInfo']))
+			$sqlInsert="insert into app_trainee_track (trainee,trackId,versionNumber) VALUES ('".$trainee."',1,'".$versionNumber."')";
+			if(mysql_query($sqlInsert,$GLOBALS['connectionInfo']))
 				$response=$versionNumber;
 			else 
 				$response="No Version Number";
