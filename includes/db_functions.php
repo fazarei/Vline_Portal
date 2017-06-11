@@ -930,6 +930,21 @@ function loadChecklist($trainee) {
 	return $allChecklist;
 }
 
+function loadChecklistTask($trainee) {
+
+	//$trackId=traineeTrackId($trainee);
+	$allChecklistTask="";
+				
+	$sql="SELECT Id,checknum,name,taskgroup FROM app_core_checklisttask where trackId='1' and upgradeQuery<>'delete'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allChecklistTask.=$row["Id"]."^".$row["checknum"]."^".$row["name"]."^".$row["taskgroup"]."!";
+		}
+	}
+	return $allChecklistTask;
+}
+
 function loadCompetency($trainee) {
 
 	//$trackId=traineeTrackId($trainee);
@@ -1012,8 +1027,8 @@ function updateTraineeVersion($trainee)
 		else
 		{
 		//Currently we dont have seperate trackId for each trainee. so, we insert 1 for all trainee but in future should be different for each trainee 
-			$sqlUpdate="insert into app_trainee_track (trainee,trackId,versionNumber) VALUES ('".$trainee."',1,'".$versionNumber."')";
-			if(mysql_query($sqlUpdate,$GLOBALS['connectionInfo']))
+			$sqlInsert="insert into app_trainee_track (trainee,trackId,versionNumber) VALUES ('".$trainee."',1,'".$versionNumber."')";
+			if(mysql_query($sqlInsert,$GLOBALS['connectionInfo']))
 				$response=$versionNumber;
 			else 
 				$response="No Version Number";
@@ -1182,5 +1197,214 @@ function upgradeChecklistTask($trainee,$version) {
 		}
 	}
 	return $allChecklistTask;
+}
+
+function userAlreadySynchedData($trainee) {
+			
+	$sql="SELECT * FROM app_checklist where trainee='$trainee'";
+	$num_rows = 0;
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		$num_rows = mysql_num_rows($result);
+	}
+	if($num_rows>0)
+	{
+		return "True";
+	}
+	else
+	{
+		return "False";
+	}
+}
+function loadAssessmentSync($trainee) {
+	$allAssessment="";
+				
+	$sql="SELECT * FROM app_assessment where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allAssessment.=$row["timevisible"]."^".$row["trainee"]."^".$row["assessor"]."^".$row["trainer"]."^".$row["Id"]."^".$row["stageId"]."^".$row["name"]."^".$row["location"]."^".$row["date"]."^".$row["result"]."^".$row["assessorsig"]."^".$row["assessordate"]."^".$row["traineesig"]."^".$row["traineedate"]."^".$row["comment"]."^".$row["timeoverschedule"]."^".$row["timelost"]."^".$row["objective"]."!";
+		}
+	}
+	return $allAssessment;
+}
+
+function loadSubjectSync($trainee) {
+
+	$allSubject="";
+				
+	$sql="SELECT * FROM  app_subject where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allSubject.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["Id"]."^".$row["assessmentId"]."^".$row["name"]."^".$row["objective"]."^".$row["achieved"]."^".$row["comment"]."^".$row["requirednum"]."!";
+		}
+	}
+	return $allSubject;
+}
+
+function loadSubjectChecklistSync($trainee) {
+
+	$allSubjectChecklist="";	
+	$sql="SELECT * FROM app_subjectchecklist where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allSubjectChecklist.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["nyc"]."^".$row["explained"]."^".$row["demonstration"]."^".$row["critical"]."^".$row["checkdesc"]."^".$row["Id"]."^".$row["subjectId"]."^".$row["checknum"]."!";
+		}
+	}
+	return $allSubjectChecklist;
+}
+
+function loadChecklistSync($trainee) {
+
+	$allChecklist="";
+				
+	$sql="SELECT * FROM app_checklist where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allChecklist.=$row["ungperform"]."^".$row["ungmpu"]."^".$row["gmpu"]."^".$row["insmpu"]."^".$row["corridorup"]."^".$row["corridordown"]."^".$row["trainerinstruction"]."^".$row["trainerguide"]."^".$row["trainerunguide"]."^".$row["rpl"]."^".$row["locomotivetype"]."^".$row["description"]."^".$row["trainee"]."^".$row["assessor"]."^".$row["trainer"]."^".$row["Id"]."^".$row["checknum"]."^".$row["name"]."^".$row["objective"]."^".$row["critical"]."^".$row["explained"]."^".$row["demonstrated"]."^".$row["nyc"]."^".$row["tasktraineesig"]."^".$row["tasktraineedate"]."^".$row["tasktrainersig"]."^".$row["tasktrainerdate"]."^".$row["instrainersig"]."^".$row["insdate"]."^".$row["insdayornight"]."^".$row["insweather"]."^".$row["insfrom"]."^".$row["insto"]."^".$row["insnovehicle"]."^".$row["gtrainersig"]."^".$row["gdate"]."^".$row["gdayornight"]."^".$row["gweather"]."^".$row["gfrom"]."^".$row["gto"]."^".$row["gnovehicle"]."^".$row["ungtrainersig"]."^".$row["ungdate"]."^".$row["	ungdayornight"]."^".$row["ungweather"]."^".$row["ungfrom"]."^".$row["ungto"]."^".$row["ungnovehicle"]."!";
+		}
+	}
+	return $allChecklist;
+}
+
+function loadChecklistTaskSync($trainee) {
+	$allChecklistTask="";
+				
+	$sql="SELECT * FROM app_checklisttask where trainee='$trainee' ";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allChecklistTask.=$row["trainee"]."^".$row["assessor"]."^".$row["Id"]."^".$row["checknum"]."^".$row["name"]."^".$row["taskgroup"]."^".$row["instructed"]."^".$row["gna"]."^".$row["gd"]."^".$row["ge"]."^".$row["unna"]."^".$row["und"]."^".$row["une"]."!";
+		}
+	}
+	return $allChecklistTask;
+}
+
+function loadCompetencySync($trainee) {
+
+	$allCompetency="";
+				
+	$sql="SELECT * FROM  app_competency where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+			$allCompetency.=$row["result"]."^".$row["trainee"]."^".$row["assessor"]."^".$row["trainer"]."^".$row["Id"]."^".$row["assessmentId"]."^".$row["taskactivity"]."^".$row["corridor"]."^".$row["objective"]."^".$row["c"]."^".$row["nyc"]."^".$row["comment"]."^".$row["assessorsig"]."^".$row["traineesig"]."!";
+		}
+	}
+	return $allCompetency;
+}
+function loadCompetencyTaskSync($trainee) {
+	$allCompetencyTask="";
+				
+	$sql="SELECT * FROM  app_competencytask where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allCompetencyTask.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["Id"]."^".$row["competencyId"]."^".$row["no"]."^".$row["name"]."^".$row["demonstrated"]."^".$row["explained"]."^".$row["nyc"]."!";
+		}
+	}
+	return $allCompetencyTask;
+}
+
+function updateTraineeVersionSync($trainee)
+{
+	$sql="SELECT * from app_trainee_track where trainee='$trainee'";
+	$versionNumber="";
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+		$versionNumber=$row["versionNumber"];
+		}
+	}
+	return $versionNumber;
+}
+function updateAssessmentDetailSync($trainee)
+{
+	$allAssessmentDetail="";
+				
+	$sql="SELECT * FROM  app_assessmentdetail where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allAssessmentDetail.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["Id"]."^".$row["assessmentId"]."^".$row["tripno"]."^".$row["time"]."^".$row["location"]."^".$row["destination"]."^".$row["tdNo"]."^".$row["mputype"]."^".$row["mpuno"]."^".$row["weather"]."!";
+		}
+	}	return $allAssessmentDetail;
+}
+
+function updateTimeLostSync($trainee)
+{
+	$allTimeLost="";
+				
+	$sql="SELECT * FROM  app_timelost where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allTimeLost.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["Id"]."^".$row["assessmentId"]."^".$row["tripno"]."^".$row["minutelost"]."^".$row["signals"]."^".$row["passengerdelay"]."^".$row["permanentway"]."^".$row["trackwork"]."^".$row["trainfault"]."^".$row["other"]."^".$row["explanation"]."!";
+		}
+	}	return $allTimeLost;
+}
+function updateSubjectChecklistSync($trainee)
+{
+	$allSubjectChecklist="";
+				
+	$sql="SELECT * FROM  app_subjectchecklist where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allSubjectChecklist.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["nyc"]."^".
+			$row["explained"]."^".$row["demonstration"]."^".$row["critical"]."^".$row["checkdesc"]."^".$row["Id"]."^".
+			$row["subjectId"]."^".$row["checknum"]."!";
+		}
+	}	return $allSubjectChecklist;
+}
+
+function updateChecklistTaskSync($trainee)
+{
+	$allChecklistTask="";
+				
+	$sql="SELECT * FROM app_checklisttask where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allChecklistTask.=$row["trainee"]."^".$row["assessor"]."^".$row["Id"]."^".$row["checknum"]."^".$row["name"]."^".$row["taskgroup"]."^".$row["instructed"]."^".$row["gna"]."^".$row["gd"]."^".$row["ge"]."^".$row["unna"]."^".
+			$row["und"]."^".$row["une"]."!";
+		}
+	}	return $allChecklistTask;
+}
+
+function updateCompetencyTaskSync($trainee)
+{
+	$allCompetencyTask="";
+				
+	$sql="SELECT * FROM app_competencytask where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allCompetencyTask.=$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["Id"]."^".
+			$row["competencyId"]."^".$row["no"]."^".$row["name"]."^".$row["demonstrated"]."^".$row["explained"]."^".$row["nyc"]."!";
+		}
+	}	return $allCompetencyTask;
+}
+
+function updateCompetencyTaskDescSync($trainee)
+{
+	$allCompetencyTaskDest="";
+				
+	$sql="SELECT * FROM app_competencytaskdesc where trainee='$trainee'";
+	
+	if($result=mysql_query($sql,$GLOBALS['connectionInfo'])){
+		while($row = mysql_fetch_array($result)) {
+
+			$allCompetencyTaskDest.=$row["tablenumber"]."^".$row["motivepower"]."^".$row["task"]."^".$row["assessor"]."^".$row["trainer"]."^".$row["trainee"]."^".$row["Id"]."^".$row["competencyId"]."^".$row["date"]."^".$row["mpu"]."^".$row["dayornight"]."^".$row["tdno"]."^".$row["origin"]."^".$row["destination"]."!";
+		}
+	}	return $allCompetencyTaskDest;
 }
 ?>
