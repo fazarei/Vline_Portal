@@ -277,14 +277,58 @@ if($_POST) {
 			$csvdata=upgradeChecklistIndex($_POST['trainee'],$_POST['version']);
 			break;
 
-		case "upgradeStage":
-			$csvdata=upgradeStage($_POST['trainee'],$_POST['version']);
-			break;
-
 		case "upgradeChecklistTask":
 			$csvdata=upgradeChecklistTask($_POST['trainee'],$_POST['version']);
+			break;	
+
+		case "userAlreadySynchedData":
+			$csvdata=userAlreadySynchedData($_POST['trainee']);
 			break;			
+			
+		case "loadAssessmentSync":
+			$csvdata=loadAssessmentSync($_POST['trainee']);
+			break;
 		
+		case "loadSubjectSync":
+			$csvdata=loadSubjectSync($_POST['trainee']);
+			break;
+			
+		case "loadChecklistSync":
+			$csvdata=loadChecklistSync($_POST['trainee']);
+			break;
+		
+		case "loadCompetencySync":
+			$csvdata=loadCompetencySync($_POST['trainee']);
+			break;
+			
+		case "updateTraineeVersionSync":	
+			$csvdata=updateTraineeVersionSync($_POST['trainee']);
+			break;
+			
+		case "updateAssessmentDetailSync":	
+			$csvdata=updateAssessmentDetailSync($_POST['trainee']);
+			break;
+			
+		case "updateTimeLostSync":	
+			$csvdata=updateTimeLostSync($_POST['trainee']);
+			break;
+		
+		case "updateSubjectChecklistSync":	
+			$csvdata=updateSubjectChecklistSync($_POST['trainee']);
+			break;
+			
+		case "updateChecklistTaskSync":	
+			$csvdata=updateChecklistTaskSync($_POST['trainee']);
+			break;
+		
+		case "updateCompetencyTaskSync":	
+			$csvdata=updateCompetencyTaskSync($_POST['trainee']);
+			break;
+			
+		case "updateCompetencyTaskDescSync":	
+			$csvdata=updateCompetencyTaskDescSync($_POST['trainee']);
+			break;
+			
 		default:
 			$csvdata="No Record Found";
 	}

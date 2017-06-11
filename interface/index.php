@@ -133,7 +133,7 @@
 					})
 					.done(function( text ) {
 						log('from login: '+text)
-						
+
 						if(text == 'Invalid user ID or password') {
 							// let the user know the result
 							$('.password-display td').html(text);
